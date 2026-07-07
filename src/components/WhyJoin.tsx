@@ -33,15 +33,6 @@ export function WhyJoin() {
             </div>
           ))}
         </div>
-        <div className="capellan">
-          <p>
-            <strong>Carlos Pont Gasques</strong>, presidente de Casa Liber, es
-            también Capellán General del Servicio Penitenciario Bonaerense y
-            Delegado Episcopal para la pastoral carcelaria de la Arquidiócesis de
-            La Plata: un respaldo institucional y eclesiástico que sostiene cada
-            uno de nuestros programas.
-          </p>
-        </div>
       </div>
     </section>
   );
