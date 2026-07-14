@@ -47,9 +47,11 @@ export function Header() {
               </li>
             ))}
           </ul>
-          <a className={`${btn} hidden min-[861px]:inline-block`} href="#niveles">
-            Sumá tu empresa
-          </a>
+          <span className="max-[860px]:hidden">
+            <a className={btn} href="#niveles">
+              Sumá tu empresa
+            </a>
+          </span>
           <button
             type="button"
             className="flex h-11 w-11 flex-col items-center justify-center gap-[5px] border-none bg-transparent p-0 min-[861px]:hidden"
@@ -98,7 +100,7 @@ export function Header() {
           ))}
           <li>
             <a
-              className={`${btn} mt-3.5 block text-center`}
+              className={`${btn} mt-3.5 !block w-full text-center`}
               href="#niveles"
               onClick={() => setOpen(false)}
             >

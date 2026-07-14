@@ -30,16 +30,16 @@ export function Quienes() {
             escalar: dialogamos con el sistema penitenciario provincial y con la
             Iglesia, y proyectamos nuestro trabajo a nivel nacional.
           </p>
-          <div className="mt-[18px] flex flex-wrap gap-2.5">
+          <ul className="mt-[18px] grid gap-2 sm:flex sm:flex-wrap sm:gap-2.5">
             {PILLS.map((pill) => (
-              <span
-                className="rounded-full border border-verde/25 bg-white px-3.5 py-1.5 text-[0.82rem] font-semibold text-verde"
+              <li
+                className="rounded-full border border-verde/25 bg-white px-3.5 py-1.5 text-center text-[0.82rem] font-semibold text-verde sm:w-auto sm:text-left"
                 key={pill}
               >
                 {pill}
-              </span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
         <div className="w-full max-w-[260px] justify-self-center sm:max-w-[360px]" aria-hidden="true">
           <svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg">

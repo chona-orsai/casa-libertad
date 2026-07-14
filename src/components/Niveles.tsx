@@ -74,7 +74,9 @@ export function Niveles() {
               </ul>
               <a
                 className={`${tier.outline ? btnOutline : btn} text-center`}
-                href="#contacto"
+                href="https://wa.me/5492214345701"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Quiero sumarme
               </a>

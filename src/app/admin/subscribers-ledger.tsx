@@ -29,20 +29,45 @@ export type Subscriber = {
 };
 
 type StatusFilter = "all" | "aprobada" | "pendiente" | "cancelada";
+type MethodFilter = "all" | "mercadopago" | "transfer";
 
 const ACTIVE_STATUSES = new Set(["authorized", "approved"]);
 
-const FILTERS: { id: StatusFilter; label: string }[] = [
+const STATUS_FILTERS: { id: StatusFilter; label: string }[] = [
   { id: "all", label: "Todas" },
   { id: "aprobada", label: "Aprobadas" },
   { id: "pendiente", label: "Pendientes" },
   { id: "cancelada", label: "Canceladas" },
 ];
 
+const METHOD_FILTERS: {
+  id: MethodFilter;
+  label: string;
+  shortLabel: string;
+}[] = [
+  { id: "all", label: "Todos los medios", shortLabel: "Medios" },
+  { id: "mercadopago", label: "Mercado Pago", shortLabel: "M. Pago" },
+  { id: "transfer", label: "Transferencia", shortLabel: "Transfer." },
+];
+
 function isTransfer(row: Subscriber) {
   return (
     row.raw?.payment_method === "transfer" ||
     row.mp_preapproval_id.startsWith("transfer_")
+  );
+}
+
+function MethodBadge({ transfer }: { transfer: boolean }) {
+  return (
+    <span
+      className={`inline-block rounded-sm px-2 py-0.5 text-[0.68rem] font-bold tracking-[1.1px] uppercase ${
+        transfer
+          ? "bg-[var(--admin-wax)]/15 text-[var(--admin-wax)]"
+          : "bg-[#009EE3]/12 text-[#0077b3]"
+      }`}
+    >
+      {transfer ? "Transferencia" : "Mercado Pago"}
+    </span>
   );
 }
 
@@ -123,6 +148,13 @@ function matchesStatus(status: string, filter: StatusFilter) {
   return true;
 }
 
+function matchesMethod(row: Subscriber, filter: MethodFilter) {
+  if (filter === "all") return true;
+  const transfer = isTransfer(row);
+  if (filter === "transfer") return transfer;
+  return !transfer;
+}
+
 function matchesQuery(row: Subscriber, query: string) {
   if (!query) return true;
   const haystack = [
@@ -158,7 +190,7 @@ function ApproveTransferButton({ id }: { id: string }) {
             }
           });
         }}
-        className="cursor-pointer rounded-full border-none bg-miel px-3.5 py-1.5 text-[0.78rem] font-bold text-ink disabled:cursor-wait disabled:opacity-70"
+        className="w-full cursor-pointer rounded-full border-none bg-miel px-3.5 py-2.5 text-[0.78rem] font-bold text-ink disabled:cursor-wait disabled:opacity-70 sm:w-auto sm:py-1.5"
       >
         {pending ? "Aprobando…" : "Aprobar 1 mes"}
       </button>
@@ -173,10 +205,15 @@ function ApproveTransferButton({ id }: { id: string }) {
 
 function LedgerRow({ row, index }: { row: Subscriber; index: number }) {
   const transfer = isTransfer(row);
+  const statusTone = ACTIVE_STATUSES.has(row.status)
+    ? "text-verde"
+    : row.status === "pending"
+      ? "text-tierra"
+      : "text-muted";
 
   return (
     <article
-      className="admin-ledger-row relative grid gap-3 border-b border-[var(--admin-rule)] py-4 pl-4 sm:grid-cols-[minmax(0,1.4fr)_auto_minmax(7rem,1fr)_minmax(7rem,1fr)] sm:items-baseline sm:gap-6 sm:pl-5"
+      className="admin-ledger-row relative grid grid-cols-2 gap-x-3 gap-y-3 border-b border-[var(--admin-rule)] py-4 pl-3.5 sm:grid-cols-[minmax(0,1.4fr)_auto_minmax(7rem,1fr)_minmax(7rem,1fr)] sm:items-baseline sm:gap-6 sm:pl-5"
       style={{ animationDelay: `${Math.min(index, 12) * 40}ms` }}
     >
       <span
@@ -185,14 +222,19 @@ function LedgerRow({ row, index }: { row: Subscriber; index: number }) {
       />
 
       <div className="min-w-0">
-        <p className="m-0 truncate font-medium text-ink">
+        <div className="mb-1.5 flex flex-wrap items-center gap-2">
+          <MethodBadge transfer={transfer} />
+          <span
+            className={`text-[0.72rem] font-bold tracking-[1.2px] uppercase sm:hidden ${statusTone}`}
+          >
+            {statusLabel(row.status)}
+          </span>
+        </div>
+        <p className="m-0 break-words font-medium text-ink">
           {payerFullName(row) ?? "Sin nombre"}
         </p>
-        <p className="m-0 mt-0.5 truncate text-sm text-body">
+        <p className="m-0 mt-0.5 break-all text-sm text-body">
           {payerEmail(row) ?? "Sin email de pago"}
-        </p>
-        <p className="m-0 mt-0.5 text-[0.68rem] font-bold tracking-[1px] text-muted uppercase">
-          {transfer ? "Transferencia" : "Mercado Pago"}
         </p>
         {!transfer ? (
           <p className="m-0 mt-0.5 truncate font-mono text-[0.68rem] tracking-wide text-muted/80">
@@ -205,7 +247,7 @@ function LedgerRow({ row, index }: { row: Subscriber; index: number }) {
               href={row.proofUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-medium text-verde underline-offset-2 hover:underline"
+              className="inline-flex min-h-10 items-center text-sm font-medium text-verde underline-offset-2 hover:underline sm:min-h-0"
             >
               Ver comprobante
             </a>
@@ -216,19 +258,13 @@ function LedgerRow({ row, index }: { row: Subscriber; index: number }) {
         ) : null}
       </div>
 
-      <div className="flex items-baseline gap-3 sm:flex-col sm:items-end sm:gap-0.5">
+      <div className="flex flex-col items-end gap-0.5 self-start text-right">
         <span
-          className={`text-[0.72rem] font-bold tracking-[1.2px] uppercase ${
-            ACTIVE_STATUSES.has(row.status)
-              ? "text-verde"
-              : row.status === "pending"
-                ? "text-tierra"
-                : "text-muted"
-          }`}
+          className={`hidden text-[0.72rem] font-bold tracking-[1.2px] uppercase sm:inline ${statusTone}`}
         >
           {statusLabel(row.status)}
         </span>
-        <span className="font-display text-[1.15rem] font-semibold tabular-nums tracking-tight text-ink sm:text-[1.25rem]">
+        <span className="font-display text-[1.2rem] font-semibold tabular-nums tracking-tight text-ink sm:text-[1.25rem]">
           {formatMoney(row.transaction_amount, row.currency_id)}
         </span>
       </div>
@@ -262,51 +298,95 @@ function LedgerRow({ row, index }: { row: Subscriber; index: number }) {
 
 export function SubscribersLedger({ rows }: { rows: Subscriber[] }) {
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
+  const [methodFilter, setMethodFilter] = useState<MethodFilter>("all");
   const [query, setQuery] = useState("");
 
   const q = query.trim().toLowerCase();
   const filtered = rows.filter(
-    (row) => matchesStatus(row.status, statusFilter) && matchesQuery(row, q),
+    (row) =>
+      matchesStatus(row.status, statusFilter) &&
+      matchesMethod(row, methodFilter) &&
+      matchesQuery(row, q),
   );
 
   return (
     <div className="admin-rise">
-      <div className="mb-1 flex flex-col gap-4 border-b-2 border-[var(--admin-moss)] pb-3 sm:flex-row sm:items-end sm:justify-between">
+      <div className="mb-1 flex items-baseline justify-between gap-3 border-b-2 border-[var(--admin-moss)] pb-3">
         <p className="m-0 text-[0.72rem] font-bold tracking-[1.6px] text-verde uppercase">
           Amigos registrados
         </p>
-        <p className="m-0 text-[0.72rem] font-bold tracking-[1px] text-muted uppercase">
+        <p className="m-0 shrink-0 text-[0.68rem] font-bold tracking-[1px] text-muted uppercase sm:text-[0.72rem]">
           {filtered.length === rows.length
             ? `${rows.length} en el registro`
             : `${filtered.length} de ${rows.length}`}
         </p>
       </div>
 
-      <div className="flex flex-col gap-4 border-b border-[var(--admin-rule)] py-4">
-        <div
-          role="tablist"
-          aria-label="Filtrar por estado"
-          className="flex flex-wrap gap-x-1 gap-y-2"
-        >
-          {FILTERS.map((filter) => {
-            const active = statusFilter === filter.id;
-            return (
-              <button
-                key={filter.id}
-                type="button"
-                role="tab"
-                aria-selected={active}
-                onClick={() => setStatusFilter(filter.id)}
-                className={`cursor-pointer border-0 border-b-2 bg-transparent px-2.5 py-1.5 text-[0.78rem] font-bold tracking-[1px] uppercase transition-[color,border-color] ${
-                  active
-                    ? "border-[var(--admin-moss)] text-verde"
-                    : "border-transparent text-muted hover:text-ink"
-                }`}
-              >
-                {filter.label}
-              </button>
-            );
-          })}
+      <div className="flex flex-col gap-3 border-b border-[var(--admin-rule)] py-3 sm:gap-4 sm:py-4">
+        <div className="-mx-4 overflow-x-auto overscroll-x-contain px-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden min-[900px]:mx-0 min-[900px]:overflow-visible min-[900px]:px-0">
+          <div className="flex w-max items-center gap-x-0.5 min-[900px]:w-auto min-[900px]:flex-wrap min-[900px]:gap-x-0">
+            <div
+              role="tablist"
+              aria-label="Filtrar por estado"
+              className="flex gap-x-0.5"
+            >
+              {STATUS_FILTERS.map((filter) => {
+                const active = statusFilter === filter.id;
+                return (
+                  <button
+                    key={filter.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => setStatusFilter(filter.id)}
+                    className={`cursor-pointer whitespace-nowrap border-0 border-b-2 bg-transparent px-2.5 py-2.5 text-[0.72rem] font-bold tracking-[1px] uppercase transition-[color,border-color] sm:py-1.5 sm:text-[0.78rem] ${
+                      active
+                        ? "border-[var(--admin-moss)] text-verde"
+                        : "border-transparent text-muted hover:text-ink"
+                    }`}
+                  >
+                    {filter.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            <span
+              aria-hidden
+              className="mx-2 inline-block h-4 w-px shrink-0 bg-[var(--admin-rule)] min-[900px]:mx-3"
+            />
+
+            <div
+              role="tablist"
+              aria-label="Filtrar por medio de pago"
+              className="flex gap-x-0.5"
+            >
+              {METHOD_FILTERS.map((filter) => {
+                const active = methodFilter === filter.id;
+                return (
+                  <button
+                    key={filter.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => setMethodFilter(filter.id)}
+                    className={`cursor-pointer whitespace-nowrap border-0 border-b-2 bg-transparent px-2.5 py-2.5 text-[0.72rem] font-bold tracking-[1px] uppercase transition-[color,border-color] sm:py-1.5 sm:text-[0.78rem] ${
+                      active
+                        ? filter.id === "transfer"
+                          ? "border-[var(--admin-wax)] text-[var(--admin-wax)]"
+                          : filter.id === "mercadopago"
+                            ? "border-[#0077b3] text-[#0077b3]"
+                            : "border-[var(--admin-moss)] text-verde"
+                        : "border-transparent text-muted hover:text-ink"
+                    }`}
+                  >
+                    <span className="min-[900px]:hidden">{filter.shortLabel}</span>
+                    <span className="hidden min-[900px]:inline">{filter.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
         <label className="block">
@@ -315,8 +395,8 @@ export function SubscribersLedger({ rows }: { rows: Subscriber[] }) {
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Buscar por nombre, email o medio…"
-            className="w-full border-0 border-b-2 border-[var(--admin-rule)] bg-transparent px-0 py-2 text-[1rem] text-ink caret-verde outline-none transition-[border-color] placeholder:text-muted/70 focus:border-[var(--admin-moss)]"
+            placeholder="Buscar nombre, email…"
+            className="w-full border-0 border-b-2 border-[var(--admin-rule)] bg-transparent px-0 py-2.5 text-[1rem] text-ink caret-verde outline-none transition-[border-color] placeholder:text-muted/70 focus:border-[var(--admin-moss)] sm:py-2"
           />
         </label>
       </div>

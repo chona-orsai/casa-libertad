@@ -66,21 +66,21 @@ function LoginView() {
         className="pointer-events-none absolute -right-16 bottom-10 h-56 w-56 rounded-full border border-miel/20"
       />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col justify-center gap-12 px-6 py-16 sm:px-10 min-[900px]:flex-row min-[900px]:items-end min-[900px]:justify-between min-[900px]:gap-20 min-[900px]:py-20">
+      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col justify-center gap-8 px-5 py-12 sm:gap-12 sm:px-10 sm:py-16 min-[900px]:flex-row min-[900px]:items-end min-[900px]:justify-between min-[900px]:gap-20 min-[900px]:py-20">
         <div className="admin-rise max-w-md">
-          <Logo className="footer-logo sm:!text-[2.4rem]" showSubtitle={false} />
+          <Logo className="footer-logo !text-[1.9rem] sm:!text-[2.4rem]" showSubtitle={false} />
           <p className="mt-3 font-sans text-[0.62rem] font-semibold tracking-[2.5px] text-miel/80 uppercase [filter:none] [text-shadow:none]">
             Asociación Civil Casa Libertad
           </p>
-          <h1 className="mt-10 mb-0 max-w-[12ch] font-display text-[clamp(2.4rem,6vw,3.6rem)] leading-[1.05] font-semibold text-white">
+          <h1 className="mt-8 mb-0 max-w-[12ch] font-display text-[clamp(2.1rem,8vw,3.6rem)] leading-[1.05] font-semibold text-white sm:mt-10">
             Registro del Club
           </h1>
-          <p className="mt-4 max-w-[34ch] text-[1.05rem] leading-relaxed text-[#dfe9e3]">
+          <p className="mt-4 max-w-[34ch] text-[1rem] leading-relaxed text-[#dfe9e3] sm:text-[1.05rem]">
             Acá ves quién sostiene mes a mes a las familias que acompañamos.
           </p>
         </div>
 
-        <div className="admin-rise-delay w-full max-w-sm border-t border-white/15 pt-8 min-[900px]:border-t-0 min-[900px]:border-l min-[900px]:pt-0 min-[900px]:pl-12">
+        <div className="admin-rise-delay w-full max-w-sm border-t border-white/15 pt-6 sm:pt-8 min-[900px]:border-t-0 min-[900px]:border-l min-[900px]:pt-0 min-[900px]:pl-12">
           <LoginForm />
         </div>
       </div>
@@ -106,13 +106,13 @@ export default async function AdminPage() {
       />
 
       <header className="relative z-10 border-b border-[var(--admin-rule)] bg-[var(--admin-forest)] text-white">
-        <div className="mx-auto flex w-full max-w-5xl items-end justify-between gap-6 px-5 py-7 sm:px-8 sm:py-9">
-          <div className="admin-fade min-w-0">
-            <Logo className="footer-logo sm:!text-[2rem]" showSubtitle={false} />
-            <h1 className="mt-5 mb-0 font-display text-[clamp(1.75rem,3.5vw,2.35rem)] leading-tight text-white">
+        <div className="mx-auto flex w-full max-w-5xl items-start justify-between gap-3 px-4 py-5 sm:items-end sm:gap-6 sm:px-8 sm:py-9">
+          <div className="admin-fade min-w-0 flex-1">
+            <Logo className="footer-logo !text-[1.65rem] sm:!text-[2rem]" showSubtitle={false} />
+            <h1 className="mt-4 mb-0 font-display text-[clamp(1.45rem,5.5vw,2.35rem)] leading-[1.15] text-white sm:mt-5">
               Registro del Club de Amigos
             </h1>
-            <p className="mt-2 mb-0 max-w-[42ch] text-[0.95rem] text-[#dfe9e3]">
+            <p className="mt-2 mb-0 max-w-[42ch] text-[0.9rem] leading-snug text-[#dfe9e3] sm:text-[0.95rem] sm:leading-normal">
               {rows.length === 0 ? (
                 "Todavía no hay altas cargadas."
               ) : (
@@ -136,10 +136,10 @@ export default async function AdminPage() {
             </p>
           </div>
 
-          <form action={logoutAdmin} className="shrink-0 pb-0.5">
+          <form action={logoutAdmin} className="shrink-0 pt-0.5 sm:pb-0.5 sm:pt-0">
             <button
               type="submit"
-              className="cursor-pointer rounded-full border border-white/30 bg-transparent px-4 py-2 text-sm font-bold text-white transition-[background-color,border-color] duration-150 hover:border-miel hover:bg-miel hover:text-ink"
+              className="cursor-pointer rounded-full border border-white/30 bg-transparent px-3.5 py-2 text-sm font-bold text-white transition-[background-color,border-color] duration-150 hover:border-miel hover:bg-miel hover:text-ink sm:px-4"
             >
               Salir
             </button>
@@ -147,7 +147,7 @@ export default async function AdminPage() {
         </div>
       </header>
 
-      <div className="relative z-10 mx-auto w-full max-w-5xl px-5 py-8 sm:px-8 sm:py-10">
+      <div className="relative z-10 mx-auto w-full max-w-5xl px-4 py-6 sm:px-8 sm:py-10">
         {error ? (
           <p
             className="border-l-[3px] border-tierra bg-tierra/10 px-4 py-3 text-sm text-tierra"
