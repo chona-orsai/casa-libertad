@@ -42,6 +42,13 @@ export function verifyWebhookSignature(params: {
   }
 }
 
+export class MpNotFoundError extends Error {
+  constructor(path: string) {
+    super(`Mercado Pago ${path}: 404`);
+    this.name = "MpNotFoundError";
+  }
+}
+
 async function mpFetch<T>(path: string): Promise<T> {
   const token = process.env.MERCADOPAGO_ACCESS_TOKEN;
   if (!token) throw new Error("Falta MERCADOPAGO_ACCESS_TOKEN");
@@ -50,6 +57,10 @@ async function mpFetch<T>(path: string): Promise<T> {
     headers: { Authorization: `Bearer ${token}` },
     cache: "no-store",
   });
+
+  if (res.status === 404) {
+    throw new MpNotFoundError(path);
+  }
 
   if (!res.ok) {
     const body = await res.text();

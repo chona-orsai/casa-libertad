@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   fetchAuthorizedPayment,
   fetchPreapproval,
+  MpNotFoundError,
   type MpPreapproval,
   verifyWebhookSignature,
 } from "@/lib/mercadopago";
@@ -100,6 +101,11 @@ export async function POST(request: NextRequest) {
       }
     }
   } catch (err) {
+    // El simulador de MP envía id "123456"; recursos borrados también 404.
+    // Respondemos 200 para no marcar fallo en el panel / reintentos inútiles.
+    if (err instanceof MpNotFoundError) {
+      return NextResponse.json({ ok: true, skipped: "not_found" });
+    }
     console.error("[mp-webhook]", err);
     return NextResponse.json({ error: "Error procesando webhook" }, { status: 500 });
   }
