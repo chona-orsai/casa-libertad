@@ -22,10 +22,12 @@ async function upsertSubscriber(
 ) {
   const supabase = createAdminClient();
 
+  const payerEmail = preapproval.payer_email?.trim() || null;
+
   const row: Record<string, unknown> = {
     mp_preapproval_id: String(preapproval.id),
     mp_plan_id: preapproval.preapproval_plan_id ?? null,
-    payer_email: preapproval.payer_email ?? null,
+    payer_email: payerEmail,
     payer_id: preapproval.payer_id != null ? String(preapproval.payer_id) : null,
     status: preapproval.status,
     reason: preapproval.reason ?? null,

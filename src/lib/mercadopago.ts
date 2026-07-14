@@ -76,6 +76,8 @@ export type MpPreapproval = {
   reason?: string;
   payer_id?: number;
   payer_email?: string;
+  payer_first_name?: string;
+  payer_last_name?: string;
   preapproval_plan_id?: string;
   next_payment_date?: string;
   auto_recurring?: {
@@ -90,10 +92,72 @@ export type MpAuthorizedPayment = {
   preapproval_id?: string;
   date_created?: string;
   transaction_amount?: number;
+  payment?: { id?: number; status?: string };
 };
 
-export function fetchPreapproval(id: string) {
-  return mpFetch<MpPreapproval>(`/preapproval/${id}`);
+type MpPayment = {
+  id: number;
+  payer?: { email?: string };
+};
+
+function nonempty(value: string | null | undefined) {
+  const trimmed = value?.trim();
+  return trimmed ? trimmed : undefined;
+}
+
+/** Preapproval deja payer_email vacío; el email está en el cobro (/v1/payments). */
+async function fetchPayerEmailFromCharges(preapprovalId: string) {
+  try {
+    const search = await mpFetch<{ results?: MpAuthorizedPayment[] }>(
+      `/authorized_payments/search?preapproval_id=${encodeURIComponent(preapprovalId)}`,
+    );
+    for (const ap of search.results ?? []) {
+      const paymentId = ap.payment?.id;
+      if (!paymentId) continue;
+      const payment = await mpFetch<MpPayment>(`/v1/payments/${paymentId}`);
+      const email = nonempty(payment.payer?.email);
+      if (email) return email;
+    }
+  } catch {
+    return undefined;
+  }
+  return undefined;
+}
+
+/**
+ * GET /preapproval/:id no trae nombre ni email útiles.
+ * Nombre: /preapproval/search. Email: pago asociado en /v1/payments.
+ */
+export async function fetchPreapproval(id: string): Promise<MpPreapproval> {
+  const byId = await mpFetch<MpPreapproval>(`/preapproval/${id}`);
+  let payerEmail = nonempty(byId.payer_email);
+  let payerFirstName = nonempty(byId.payer_first_name);
+  let payerLastName = nonempty(byId.payer_last_name);
+
+  try {
+    const search = await mpFetch<{ results?: MpPreapproval[] }>(
+      `/preapproval/search?id=${encodeURIComponent(id)}`,
+    );
+    const found = search.results?.[0];
+    if (found) {
+      payerEmail = payerEmail ?? nonempty(found.payer_email);
+      payerFirstName = payerFirstName ?? nonempty(found.payer_first_name);
+      payerLastName = payerLastName ?? nonempty(found.payer_last_name);
+    }
+  } catch {
+    // search es best-effort
+  }
+
+  if (!payerEmail) {
+    payerEmail = await fetchPayerEmailFromCharges(id);
+  }
+
+  return {
+    ...byId,
+    payer_email: payerEmail ?? byId.payer_email,
+    payer_first_name: payerFirstName,
+    payer_last_name: payerLastName,
+  };
 }
 
 export function fetchAuthorizedPayment(id: string) {

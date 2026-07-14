@@ -1,8 +1,16 @@
 import { section, wrap } from "@/lib/styles";
+import { getTransferInfo } from "@/lib/transfer";
+import { ClubSubscribeButton } from "./ClubSubscribeButton";
 
-const CHECKOUT_URL = process.env.MERCADOPAGO_PREAPPROVAL_PLAN_ID
-  ? `https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=${process.env.MERCADOPAGO_PREAPPROVAL_PLAN_ID}`
-  : "mailto:casalibertadlaplata@gmail.com";
+function checkoutUrl() {
+  const planId =
+    process.env.NEXT_PUBLIC_MERCADOPAGO_PREAPPROVAL_PLAN_ID ||
+    process.env.MERCADOPAGO_PREAPPROVAL_PLAN_ID;
+  if (planId) {
+    return `https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=${planId}`;
+  }
+  return "mailto:casalibertadlaplata@gmail.com";
+}
 
 export function Club() {
   return (
@@ -36,14 +44,10 @@ export function Club() {
                   por mes
                 </p>
               </div>
-              <a
-                className="inline-block w-full cursor-pointer rounded-full border-none bg-miel px-7 py-3.5 text-center text-[0.95rem] font-bold text-ink no-underline transition-transform duration-150 ease-out hover:-translate-y-0.5"
-                href={CHECKOUT_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Quiero ser Amigo/a
-              </a>
+              <ClubSubscribeButton
+                checkoutUrl={checkoutUrl()}
+                transfer={getTransferInfo()}
+              />
             </div>
           </div>
         </div>
