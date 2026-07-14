@@ -167,6 +167,10 @@ export function ClubSubscribeButton({ checkoutUrl, transfer }: Props) {
                           $6.000
                         </dd>
                       </div>
+                      <p className="m-0 mt-1 text-sm font-bold text-red-600">
+                        Monto válido por un mes de suscripción. Para renovar es
+                        necesario volver a transferir una vez vencido.
+                      </p>
                     </dl>
                   ) : (
                     <p className="mt-2 mb-0 text-sm text-body">
