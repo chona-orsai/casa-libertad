@@ -67,7 +67,7 @@ export default function RootLayout({
       lang="es"
       className={`${fraunces.variable} ${sourceSans.variable} ${kalam.variable}`}
     >
-      <body>{children}</body>
+      <body className="font-sans">{children}</body>
     </html>
   );
 }

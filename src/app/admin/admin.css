@@ -1,0 +1,54 @@
+@keyframes admin-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes admin-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.admin-shell {
+  --admin-paper: #f9f3e9;
+  --admin-rule: rgba(30, 74, 56, 0.14);
+  --admin-forest: #1e4a38;
+  --admin-moss: #2d6a4f;
+  --admin-wax: #c4622d;
+  --admin-honey: #e8a44a;
+  --admin-ink: #2b211b;
+}
+
+.admin-rise {
+  animation: admin-rise 0.55s ease-out both;
+}
+
+.admin-rise-delay {
+  animation: admin-rise 0.55s ease-out 0.12s both;
+}
+
+.admin-fade {
+  animation: admin-fade 0.4s ease-out both;
+}
+
+.admin-ledger-row {
+  animation: admin-rise 0.45s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-rise,
+  .admin-rise-delay,
+  .admin-fade,
+  .admin-ledger-row {
+    animation: none;
+  }
+}

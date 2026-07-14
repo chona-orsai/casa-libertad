@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Logo } from "./Logo";
+import { btn, wrap } from "@/lib/styles";
 
 const NAV_LINKS = [
   { href: "#quienes", label: "Quiénes somos" },
@@ -22,58 +23,85 @@ export function Header() {
   }, []);
 
   return (
-    <header>
-      <div className="nav wrap">
-        <a
-          href="#top"
-          aria-label="Casa Liber — inicio"
-          style={{ textDecoration: "none" }}
-        >
+    <header className="sticky top-0 z-20 border-b border-ink/8 bg-crema/92 backdrop-blur-[6px]">
+      <div
+        className={`${wrap} flex items-center justify-between px-5 py-3 sm:px-7 sm:py-3.5`}
+      >
+        <a href="#top" aria-label="Casa Liber — inicio" className="no-underline">
           <Logo />
         </a>
 
-        <nav className="nav-links" aria-label="Navegación principal">
-          <ul>
+        <nav
+          className="flex items-center gap-3 sm:gap-7"
+          aria-label="Navegación principal"
+        >
+          <ul className="m-0 hidden list-none gap-7 p-0 text-[0.95rem] font-semibold min-[861px]:flex">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <a href={link.href}>{link.label}</a>
+                <a
+                  href={link.href}
+                  className="text-ink/85 no-underline hover:text-tierra hover:opacity-100"
+                >
+                  {link.label}
+                </a>
               </li>
             ))}
           </ul>
-          <a className="btn" href="#niveles">
+          <a className={`${btn} hidden min-[861px]:inline-block`} href="#niveles">
             Sumá tu empresa
           </a>
           <button
             type="button"
-            className="menu-toggle"
+            className="flex h-11 w-11 flex-col items-center justify-center gap-[5px] border-none bg-transparent p-0 min-[861px]:hidden"
             aria-label={open ? "Cerrar menú" : "Abrir menú"}
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen((v) => !v)}
           >
-            <span />
-            <span />
-            <span />
+            <span
+              className={`block h-0.5 w-6 rounded-sm bg-ink transition-[transform,opacity] duration-200 ${
+                open ? "translate-y-[7px] rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-6 rounded-sm bg-ink transition-[transform,opacity] duration-200 ${
+                open ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-6 rounded-sm bg-ink transition-[transform,opacity] duration-200 ${
+                open ? "-translate-y-[7px] -rotate-45" : ""
+              }`}
+            />
           </button>
         </nav>
       </div>
 
       <nav
         id="mobile-menu"
-        className="mobile-menu"
-        data-open={open}
+        className={`overflow-hidden border-t border-ink/8 bg-crema/98 transition-[max-height] duration-300 min-[861px]:hidden ${
+          open ? "max-h-[420px]" : "max-h-0"
+        }`}
         aria-label="Navegación móvil"
       >
-        <ul>
+        <ul className="m-0 flex list-none flex-col gap-1 px-5 pt-2 pb-5">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
-              <a href={link.href} onClick={() => setOpen(false)}>
+              <a
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="block border-b border-ink/[0.07] px-1 py-3 font-semibold no-underline"
+              >
                 {link.label}
               </a>
             </li>
           ))}
           <li>
-            <a className="btn" href="#niveles" onClick={() => setOpen(false)}>
+            <a
+              className={`${btn} mt-3.5 block text-center`}
+              href="#niveles"
+              onClick={() => setOpen(false)}
+            >
               Sumá tu empresa
             </a>
           </li>

@@ -1,3 +1,5 @@
+import { eyebrow, sectionAlt, sectionHead, wrap } from "@/lib/styles";
+
 const REASONS = [
   {
     title: "Impacto medible",
@@ -19,17 +21,24 @@ const REASONS = [
 
 export function WhyJoin() {
   return (
-    <section>
-      <div className="wrap">
-        <div className="section-head">
-          <span className="eyebrow">Por qué asociar tu empresa</span>
-          <h2>Un impacto concreto, con respaldo institucional real</h2>
+    <section className={sectionAlt}>
+      <div className={wrap}>
+        <div className={sectionHead}>
+          <span className={`${eyebrow} text-center`}>
+            Por qué asociar tu empresa
+          </span>
+          <h2>
+            Un impacto concreto, con respaldo institucional&nbsp;real
+          </h2>
         </div>
-        <div className="why-grid">
+        <div className="grid gap-[22px] min-[761px]:grid-cols-2">
           {REASONS.map((reason) => (
-            <div className="why-card" key={reason.title}>
-              <h3>{reason.title}</h3>
-              <p>{reason.text}</p>
+            <div
+              className="rounded-2xl border border-ink/[0.07] bg-white p-5 sm:p-[26px]"
+              key={reason.title}
+            >
+              <h3 className="mb-2 text-[1.05rem] text-verde">{reason.title}</h3>
+              <p className="m-0 text-[0.95rem] text-body">{reason.text}</p>
             </div>
           ))}
         </div>
