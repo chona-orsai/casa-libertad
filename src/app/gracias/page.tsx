@@ -7,7 +7,7 @@ import { btn, wrap } from "@/lib/styles";
 export const metadata: Metadata = {
   title: "Gracias — Club de Amigos | Casa Liber",
   description:
-    "Gracias por sumarte al Club de Amigos de Casa Liber. Tu aporte mensual sostiene a madres y a sus hijas e hijos.",
+    "Gracias por sumarte al Club de Amigos de Casa Liber. Tu aporte mensual sostiene a mujeres y a sus hijas e hijos.",
   robots: { index: false, follow: false },
 };
 

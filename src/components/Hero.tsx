@@ -16,7 +16,7 @@ export function Hero() {
             .
           </h1>
           <p className="my-[18px] mb-[30px] max-w-[52ch] text-[1.05rem] text-body sm:text-[1.12rem]">
-            Casa Liber acompaña a madres y a sus hijas e hijos en el proceso de
+            Casa Liber acompaña a mujeres y a sus hijas e hijos en el proceso de
             salida del encierro, para que puedan reconstruir juntos un proyecto
             de vida. Tu empresa puede ser parte de ese sostén.
           </p>

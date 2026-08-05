@@ -23,7 +23,7 @@ export function Club() {
                 Club de Amigos de Casa Liber
               </span>
               <h2 className="max-w-[28ch] text-balance text-white min-[821px]:max-w-none">
-                ¿Preferís sumarte vos, en lugar de tu empresa?
+                ¿Querés sumarte al Club de Amigos de Casa Liber?
               </h2>
               <p className="mt-3 max-w-[52ch] text-[#dfe9e3]">
                 El Club de Amigos de Casa Liber es nuestra comunidad de aportantes

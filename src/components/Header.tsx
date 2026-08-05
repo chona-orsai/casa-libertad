@@ -49,7 +49,7 @@ export function Header() {
           </ul>
           <span className="max-[860px]:hidden">
             <a className={btn} href="#niveles">
-              Sumá tu empresa
+              Sumate a Casa Liber
             </a>
           </span>
           <button
@@ -104,7 +104,7 @@ export function Header() {
               href="#niveles"
               onClick={() => setOpen(false)}
             >
-              Sumá tu empresa
+              Sumate a Casa Liber
             </a>
           </li>
         </ul>

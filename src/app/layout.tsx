@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Casa Liber — Sumá a tu empresa",
   description:
-    "Casa Liber acompaña a madres y a sus hijas e hijos en la salida del encierro para reconstruir un proyecto de vida. Sumá tu empresa a través de nuestros niveles de apoyo a Casa Magma.",
+    "Casa Liber acompaña a mujeres y a sus hijas e hijos en la salida del encierro para reconstruir un proyecto de vida. Sumá tu empresa a través de nuestros niveles de apoyo a Casa Magma.",
   keywords: [
     "Casa Liber",
     "Casa Libertad",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Casa Liber — Sumá a tu empresa",
     description:
-      "Hay vínculos que, con acompañamiento, vuelven a construirse. Sumá tu empresa al sostén de madres y sus hijas e hijos.",
+      "Hay vínculos que, con acompañamiento, vuelven a construirse. Sumá tu empresa al sostén de mujeres y sus hijas e hijos.",
     url: siteUrl,
     siteName: "Casa Liber",
     locale: "es_AR",
@@ -65,7 +65,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${fraunces.variable} ${sourceSans.variable} ${kalam.variable}`}
+      className={`${fraunces.variable} ${sourceSans.variable} ${kalam.variable} font-sans`}
     >
       <body className="font-sans">{children}</body>
     </html>

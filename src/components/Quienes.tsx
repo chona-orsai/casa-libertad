@@ -1,8 +1,9 @@
 import { eyebrow, wrap } from "@/lib/styles";
 
 const PILLS = [
-  "Enfoque multidisciplinario",
-  "Vinculación madres e hijos",
+  "Enfoque interdisciplinario",
+  "Acompañamiento integral individual a hombres y mujeres",
+  "Vinculación mujeres-madres e hijos/as",
   "Proyección nacional",
 ];
 
@@ -15,20 +16,21 @@ export function Quienes() {
         <div>
           <span className={eyebrow}>Quiénes somos</span>
           <h2>
-            Un equipo multidisciplinario, un solo objetivo: sostener el vínculo
+            Un equipo interdisciplinario, comprometido con la reconstrucción del
+            vínculo
           </h2>
           <p className="text-muted">
-            Somos una asociación civil que acompaña, con un equipo integrado de
-            psicología, trabajo social y acompañamiento legal, a mujeres que
-            atraviesan la salida de un contexto de encierro. Todo nuestro
-            trabajo está orientado a un mismo eje: que el vínculo entre una madre
-            y sus hijas e hijos pueda sostenerse y reconstruirse, en lugar de
-            romperse por el camino.
+            Somos una asociación civil integrada por psicólogos, trabajadores
+            sociales y voluntarios que, desde 2020, acompaña a personas que
+            atraviesan la salida de la cárcel. Todo nuestro trabajo está
+            orientado a un mismo eje: que el vínculo entre una madre y sus hijas
+            e hijos pueda sostenerse y reconstruirse, en lugar de romperse por
+            el camino.
           </p>
           <p className="text-muted">
             Aunque nacimos en La Plata, trabajamos con un modelo pensado para
-            escalar: dialogamos con el sistema penitenciario provincial y con la
-            Iglesia, y proyectamos nuestro trabajo a nivel nacional.
+            escalar: dialogamos entre instituciones estatales y religiosas, y
+            proyectamos nuestro trabajo a nivel nacional.
           </p>
           <ul className="mt-[18px] grid gap-2 sm:flex sm:flex-wrap sm:gap-2.5">
             {PILLS.map((pill) => (
@@ -54,7 +56,7 @@ export function Quienes() {
             />
             <text
               x="160"
-              y="70"
+              y="90"
               textAnchor="middle"
               fontFamily="Fraunces, serif"
               fontSize="15"
@@ -65,7 +67,7 @@ export function Quienes() {
             </text>
             <text
               x="160"
-              y="120"
+              y="140"
               textAnchor="middle"
               fontFamily="Fraunces, serif"
               fontSize="15"
@@ -76,18 +78,7 @@ export function Quienes() {
             </text>
             <text
               x="160"
-              y="170"
-              textAnchor="middle"
-              fontFamily="Fraunces, serif"
-              fontSize="15"
-              fill="#2D6A4F"
-              fontWeight="700"
-            >
-              Acompañamiento legal
-            </text>
-            <text
-              x="160"
-              y="220"
+              y="200"
               textAnchor="middle"
               fontFamily="Fraunces, serif"
               fontSize="16"

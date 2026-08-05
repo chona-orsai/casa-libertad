@@ -20,10 +20,11 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    @apply font-sans;
   }
 
   body {
-    @apply m-0 bg-crema font-sans text-[17px] leading-relaxed text-ink antialiased;
+    @apply m-0 font-sans text-[17px] leading-relaxed antialiased bg-crema text-body;
   }
 
   h1,

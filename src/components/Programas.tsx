@@ -3,21 +3,15 @@ import { eyebrow, sectionAlt, sectionHead, wrap } from "@/lib/styles";
 const STAGES = [
   {
     flagship: true,
-    tag: "Etapa residencial",
+    tag: null as string | null,
     title: "Casa Magma",
-    text: "Dispositivo residencial, alternativo al encierro, para madres con hijas e hijos pequeños. El espacio donde se sostiene la crianza acompañada y se prepara la reunificación familiar.",
+    text: "Casa convivencial, alternativa al encierro, para mujeres con hijas e hijos pequeños. El espacio donde se sostiene la crianza acompañada, se promueve la autonomía progresiva y el ejercicio de la ciudadanía, y se prepara la reunificación familiar.",
   },
   {
     flagship: false,
-    tag: "Etapa de externación",
+    tag: "Salida de la cárcel",
     title: "Acompañamiento Autónomo",
-    text: "Sostén psicosocial personalizado para quienes atraviesan la externación con mayor autonomía, sin perder el acompañamiento cercano.",
-  },
-  {
-    flagship: false,
-    tag: "Etapa de autonomía económica",
-    title: "Polo Productivo",
-    text: "Formación e inserción laboral con modelo cooperativo, para sostener en el tiempo el proyecto de vida y el vínculo familiar recuperado.",
+    text: "Sostén psicosocial personalizado para quienes atraviesan la salida de la cárcel con mayor autonomía, sin perder el acompañamiento cercano.",
   },
 ];
 
@@ -27,9 +21,9 @@ export function Programas() {
       <div className={wrap}>
         <div className={sectionHead}>
           <span className={`${eyebrow} text-center`}>Cómo trabajamos</span>
-          <h2>Un mismo camino, tres etapas de acompañamiento</h2>
+          <h2>Un mismo camino, distintos momentos de acompañamiento</h2>
         </div>
-        <div className="grid gap-[22px] min-[821px]:grid-cols-3">
+        <div className="mx-auto grid max-w-[820px] gap-[22px] min-[821px]:grid-cols-2">
           {STAGES.map((stage) => (
             <div
               key={stage.title}
@@ -44,13 +38,15 @@ export function Programas() {
                   Programa insignia
                 </span>
               )}
-              <span
-                className={`mb-2 block text-[0.72rem] font-bold tracking-wide uppercase ${
-                  stage.flagship ? "text-white" : "text-tierra"
-                }`}
-              >
-                {stage.tag}
-              </span>
+              {stage.tag && (
+                <span
+                  className={`mb-2 block text-[0.72rem] font-bold tracking-wide uppercase ${
+                    stage.flagship ? "text-white" : "text-tierra"
+                  }`}
+                >
+                  {stage.tag}
+                </span>
+              )}
               <h3
                 className={`text-[1.25rem] ${stage.flagship ? "text-white" : ""}`}
               >
