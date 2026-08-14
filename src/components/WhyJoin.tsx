@@ -3,7 +3,7 @@ import { eyebrow, sectionAlt, sectionHead, wrap } from "@/lib/styles";
 const REASONS = [
   {
     title: "Impacto medible",
-    text: "Tu aporte se destina a un programa concreto —Casa Magma— con objetivos claros de reunificación familiar y reinserción.",
+    text: "Tu aporte se destina a un programa concreto —por ejemplo, Casa Magma— con objetivos claros de reunificación familiar.",
   },
   {
     title: "Una causa que conecta",
@@ -11,7 +11,7 @@ const REASONS = [
   },
   {
     title: "Trayectoria e institucionalidad",
-    text: "Trabajamos en articulación con el sistema penitenciario provincial y con actores de la sociedad civil, con años de trabajo sostenido.",
+    text: "Trabajamos en articulación con instituciones estatales, nacionales, provinciales y locales, asociaciones civiles y fundaciones.",
   },
   {
     title: "Visibilidad institucional",

@@ -19,8 +19,8 @@ const TIERS = [
     outline: false,
     items: [
       "Todo lo del nivel Aliado",
-      "Visita guiada a Casa Magma para el equipo",
       "Piezas de comunicación conjunta (redes, notas)",
+      "Participación en eventos institucionales",
       "Aporte a definir",
     ],
   },
@@ -44,7 +44,7 @@ export function Niveles() {
       <div className={wrap}>
         <div className={sectionHead}>
           <span className={`${eyebrow} text-center`}>Sumá a tu empresa</span>
-          <h2>Niveles de apoyo a Casa Magma</h2>
+          <h2>Niveles de apoyo a Casa Liber</h2>
         </div>
         <div className="grid items-stretch gap-[22px] min-[821px]:grid-cols-3">
           {TIERS.map((tier) => (

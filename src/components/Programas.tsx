@@ -3,15 +3,15 @@ import { eyebrow, sectionAlt, sectionHead, wrap } from "@/lib/styles";
 const STAGES = [
   {
     flagship: true,
-    tag: null as string | null,
+    tag: "Programa para madres jefas de hogar",
     title: "Casa Magma",
-    text: "Casa convivencial, alternativa al encierro, para mujeres con hijas e hijos pequeños. El espacio donde se sostiene la crianza acompañada, se promueve la autonomía progresiva y el ejercicio de la ciudadanía, y se prepara la reunificación familiar.",
+    text: "Dispositivo convivencial, alternativa a la cárcel, para mujeres con hijas e hijos pequeños. Es el espacio donde se sostiene la crianza acompañada, se promueve la autonomía progresiva, el ejercicio de la ciudadanía, y se fomenta la reunificación familiar.",
   },
   {
     flagship: false,
     tag: "Salida de la cárcel",
     title: "Acompañamiento Autónomo",
-    text: "Sostén psicosocial personalizado para quienes atraviesan la salida de la cárcel con mayor autonomía, sin perder el acompañamiento cercano.",
+    text: "Espacio destinado a las personas que deciden voluntariamente co-pensar sus trayectorias vitales entre la cárcel y la libertad, impulsando el anclaje institucional y territorial.",
   },
 ];
 
@@ -21,7 +21,7 @@ export function Programas() {
       <div className={wrap}>
         <div className={sectionHead}>
           <span className={`${eyebrow} text-center`}>Cómo trabajamos</span>
-          <h2>Un mismo camino, distintos momentos de acompañamiento</h2>
+          <h2>Un mismo camino, distintos espacios de acompañamiento</h2>
         </div>
         <div className="mx-auto grid max-w-[820px] gap-[22px] min-[821px]:grid-cols-2">
           {STAGES.map((stage) => (
@@ -33,20 +33,13 @@ export function Programas() {
                   : "border-ink/[0.07] bg-white"
               }`}
             >
-              {stage.flagship && (
-                <span className="absolute -top-3 right-5 rounded-full bg-miel px-3 py-1.5 text-[0.7rem] font-bold tracking-[0.5px] text-ink shadow-[0_4px_10px_rgba(0,0,0,0.15)]">
-                  Programa insignia
-                </span>
-              )}
-              {stage.tag && (
-                <span
-                  className={`mb-2 block text-[0.72rem] font-bold tracking-wide uppercase ${
-                    stage.flagship ? "text-white" : "text-tierra"
-                  }`}
-                >
-                  {stage.tag}
-                </span>
-              )}
+              <span
+                className={`mb-2 block text-[0.72rem] font-bold tracking-wide uppercase ${
+                  stage.flagship ? "text-miel" : "text-tierra"
+                }`}
+              >
+                {stage.tag}
+              </span>
               <h3
                 className={`text-[1.25rem] ${stage.flagship ? "text-white" : ""}`}
               >

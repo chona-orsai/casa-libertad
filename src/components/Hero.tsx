@@ -1,4 +1,4 @@
-import { btn, btnOutline, eyebrow, wrap } from "@/lib/styles";
+import { btn, btnOutline, wrap } from "@/lib/styles";
 
 export function Hero() {
   return (
@@ -7,18 +7,18 @@ export function Hero() {
         className={`${wrap} grid items-center gap-7 min-[821px]:grid-cols-[1.15fr_0.85fr] min-[821px]:gap-12`}
       >
         <div>
-          <span className={eyebrow}>Responsabilidad Social Empresarial</span>
           <h1 className="text-[clamp(2.1rem,4vw,3.1rem)] leading-[1.12]">
             Hay vínculos que, con acompañamiento,{" "}
             <em className="not-italic text-tierra [background:linear-gradient(180deg,transparent_62%,rgba(232,164,74,0.45)_62%)]">
-              vuelven a construirse
+              vuelven a afianzarse
             </em>
             .
           </h1>
           <p className="my-[18px] mb-[30px] max-w-[52ch] text-[1.05rem] text-body sm:text-[1.12rem]">
             Casa Liber acompaña a mujeres y a sus hijas e hijos en el proceso de
-            salida del encierro, para que puedan reconstruir juntos un proyecto
-            de vida. Tu empresa puede ser parte de ese sostén.
+            salida del encierro, para que puedan sostener en conjunto su
+            proyecto de vida. Además, realizamos un acompañamiento autónomo con
+            personas prontas a recuperar la libertad.
           </p>
           <div className="flex flex-wrap gap-2.5 sm:gap-3.5">
             <a className={`${btn} w-full text-center sm:w-auto`} href="#niveles">

@@ -16,20 +16,23 @@ export function Quienes() {
         <div>
           <span className={eyebrow}>Quiénes somos</span>
           <h2>
-            Un equipo interdisciplinario, comprometido con la reconstrucción del
-            vínculo
+            Un equipo interdisciplinario, comprometido con las trayectorias
+            vitales
           </h2>
           <p className="text-muted">
             Somos una asociación civil integrada por psicólogos, trabajadores
             sociales y voluntarios que, desde 2020, acompaña a personas que
-            atraviesan la salida de la cárcel. Todo nuestro trabajo está
-            orientado a un mismo eje: que el vínculo entre una madre y sus hijas
-            e hijos pueda sostenerse y reconstruirse, en lugar de romperse por
-            el camino.
+            atraviesan la salida de la cárcel.
+          </p>
+          <p className="text-muted">
+            Una parte fundamental de nuestro trabajo está orientado al vínculo
+            entre mujeres con sus hijas e hijos, que puedan sostener y
+            fortalecer esos lazos, en la búsqueda de una autonomía progresiva.
           </p>
           <p className="text-muted">
             Aunque nacimos en La Plata, trabajamos con un modelo pensado para
-            escalar: dialogamos entre instituciones estatales y religiosas, y
+            escalar: dialogamos entre instituciones estatales, nacionales,
+            provinciales y locales, asociaciones civiles y fundaciones, y
             proyectamos nuestro trabajo a nivel nacional.
           </p>
           <ul className="mt-[18px] grid gap-2 sm:flex sm:flex-wrap sm:gap-2.5">

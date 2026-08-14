@@ -26,9 +26,9 @@ export function Club() {
                 ¿Querés sumarte al Club de Amigos de Casa Liber?
               </h2>
               <p className="mt-3 max-w-[52ch] text-[#dfe9e3]">
-                El Club de Amigos de Casa Liber es nuestra comunidad de aportantes
-                mensuales. No sos un donante más: sos parte de la red que sostiene
-                a estas familias en el tiempo.
+                El Club de Amigos de Casa Liber es nuestra comunidad de socios
+                contribuyentes. No sos sólo un aportante: sos parte de la red que
+                sostiene al acompañamiento de familias en el tiempo.
               </p>
             </div>
 
